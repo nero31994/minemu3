@@ -217,9 +217,9 @@ video {
     }
 
     #channel-list {
-        width: 130%;
+        width: 100%;
         max-height: 55vh;
-        min-width: unset;
+        min-width: 50vh;
     }
 
     #channels {
