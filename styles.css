@@ -93,49 +93,37 @@ video {
     outline: none;    
 }    
 
-/* Channel List - Now in Grid Layout */    
+/* Channel List - Now in Grid Layout with 3 Rows */    
 #channels {    
     flex-grow: 1;    
     overflow-y: auto;    
     padding: 10px;    
     display: grid;    
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Responsive grid layout */    
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Responsive columns */    
+    grid-auto-rows: 1fr; /* Ensures rows are equal height */    
+    grid-template-rows: repeat(3, 1fr); /* Set exactly 3 rows */    
     gap: 10px;    
     justify-content: center;    
     align-content: start;    
 }    
 
-/* Scrollbar Customization */    
-#channels::-webkit-scrollbar {    
-    width: 8px;    
-}    
+/* Responsive Grid Adjustments */    
+@media screen and (max-width: 850px) {    
+    #channels {    
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); /* Smaller columns for mobile */    
+        grid-template-rows: repeat(3, 1fr); /* Keep 3 rows on mobile */    
+    }    
 
-#channels::-webkit-scrollbar-thumb {    
-    background: #222;    
-    border-radius: 5px;    
-}    
+    .channel-logo {    
+        width: 40px;    
+        height: 40px;    
+    }    
 
-/* Channel Buttons (Now Grid Items) */    
-.channel-btn {    
-    display: flex;    
-    flex-direction: column;    
-    align-items: center;    
-    justify-content: center;    
-    background: #000;    
-    color: white;    
-    padding: 15px;    
-    border: 1px solid #111;    
-    cursor: pointer;    
-    border-radius: 8px;    
-    transition: 0.3s;    
-    text-align: center;    
-    font-size: 14px;    
-    width: 100%;    
-}    
+    .channel-btn {    
+        padding: 10px;    
+        font-size: 12px;    
+    }    
 
-.channel-btn:hover {    
-    background: #111;    
-}    
 
 /* Channel Logo */    
 .channel-logo {    
