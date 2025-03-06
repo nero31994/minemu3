@@ -100,7 +100,7 @@ video {
     padding: 10px;    
     display: grid;    
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Dynamic columns */    
-    grid-template-rows: repeat(3, 1fr); /* Always 3 rows */    
+    grid-template-rows: repeat(3, 3fr); /* Always 3 rows */    
     gap: 10px;    
     justify-content: center;    
     align-content: start;    
