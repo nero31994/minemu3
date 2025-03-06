@@ -1,79 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPTV Player</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.6/shaka-player.compiled.min.js"></script>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 110vh;
-            margin: 0;
-            background-color: #000;
-            color: white;
-            font-family: Arial, sans-serif;
-        }
-        #video-container {
-            position: relative;
-            max-width: 800px;
-            width: 70%;
-        }
-        video {
-            width: 100%;
-            height: auto;
-            background: black;
-        }
-        #logo {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            width: 50px;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 5px;
-            border-radius: 5px;
-        }
-        #channel-list {
-            margin-top: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-        }
-        .channel-btn {
-            background: #222;
-            color: white;
-            padding: 10px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-        .channel-btn:hover {
-            background: #444;
-        }
-    </style>
-</head>
-<body>
 
-    <div id="video-container">
-        <img id="logo" src="" alt="Channel Logo">
-        <video id="video" autoplay controls></video>
-    </div>
-
-    <div id="channel-list"></div>
-
-    <script>
         document.addEventListener('DOMContentLoaded', async function () {
             if (!shaka.Player.isBrowserSupported()) {
                 alert('Error: Shaka Player is not supported on this browser.');
                 return;
             }
 
-            const m3uUrl = "https://example.com/playlist.m3u"; // Change to your M3U file URL
+            const m3uUrl = "https://raw.githubusercontent.com/nero31994/minemu3/refs/heads/main/CIGNAL%20-%202025-03-06T191919.914.m3u"; // Change to your M3U file URL
             const channels = [];
 
             async function fetchM3U() {
