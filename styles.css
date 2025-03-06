@@ -96,11 +96,11 @@ video {
     font-size: 14px;
 }
 
-/* Channel List Scrollable */
+/* Scrollable Channel List */
 .channel-list-content {
     flex-grow: 1;
     overflow-y: auto;
-    height: calc(100% - 50px); /* Adjust based on search bar height */
+    height: 100%;
     padding: 10px;
     position: relative;
     z-index: 1;
@@ -172,5 +172,6 @@ video {
 
     .channel-list-content {
         max-height: calc(50vh - 50px); /* Prevents overlapping */
+        overflow-y: auto;
     }
 }
