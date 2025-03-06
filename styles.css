@@ -51,7 +51,7 @@ video {
 /* Channel List Container */
 #channel-list {
     flex: 1;
-    background: url('https://miro.medium.com/v2/resize:fit:1400/1*U4qm92ycN-TQ1_YIyUTblw.gif') no-repeat center center; /* Replace with your GIF URL */
+    background: url('your-gif-url.gif') no-repeat center center; /* Replace with your GIF URL */
     background-size: cover;
     border-radius: 10px;
     border: 1px solid #333;
@@ -59,6 +59,7 @@ video {
     display: flex;
     flex-direction: column;
     height: 100%;
+    overflow: hidden;
     position: relative;
 }
 
@@ -146,6 +147,8 @@ video {
     #channel-list {
         width: 100%;
         max-height: 50vh;
+        display: flex;
+        flex-direction: column;
     }
 
     .search-bar-container {
