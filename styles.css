@@ -93,37 +93,51 @@ video {
     outline: none;    
 }    
 
-/* Channel List - Now in Grid Layout with 3 Rows */    
+/* Channel List - 3-Row Grid Layout */    
 #channels {    
     flex-grow: 1;    
     overflow-y: auto;    
     padding: 10px;    
     display: grid;    
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Responsive columns */    
-    grid-auto-rows: 1fr; /* Ensures rows are equal height */    
-    grid-template-rows: repeat(3, 1fr); /* Set exactly 3 rows */    
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Dynamic columns */    
+    grid-template-rows: repeat(3, 1fr); /* Always 3 rows */    
     gap: 10px;    
     justify-content: center;    
     align-content: start;    
+    height: calc(100% - 50px); /* Adjust height dynamically */
 }    
 
-/* Responsive Grid Adjustments */    
-@media screen and (max-width: 850px) {    
-    #channels {    
-        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); /* Smaller columns for mobile */    
-        grid-template-rows: repeat(3, 1fr); /* Keep 3 rows on mobile */    
-    }    
+/* Scrollbar Customization */    
+#channels::-webkit-scrollbar {    
+    width: 8px;    
+}    
 
-    .channel-logo {    
-        width: 40px;    
-        height: 40px;    
-    }    
+#channels::-webkit-scrollbar-thumb {    
+    background: #222;    
+    border-radius: 5px;    
+}    
 
-    .channel-btn {    
-        padding: 10px;    
-        font-size: 12px;    
-    }    
+/* Channel Buttons (Now Grid Items) */    
+.channel-btn {    
+    display: flex;    
+    flex-direction: column;    
+    align-items: center;    
+    justify-content: center;    
+    background: #000;    
+    color: white;    
+    padding: 15px;    
+    border: 1px solid #111;    
+    cursor: pointer;    
+    border-radius: 8px;    
+    transition: 0.3s;    
+    text-align: center;    
+    font-size: 14px;    
+    width: 100%;    
+}    
 
+.channel-btn:hover {    
+    background: #111;    
+}    
 
 /* Channel Logo */    
 .channel-logo {    
@@ -134,7 +148,16 @@ video {
     border: 1px solid #222;    
 }    
 
-/* Responsive Grid Adjustments */    
+/* Adjustments for Landscape Mode (Screens Wider than 850px) */    
+@media screen and (min-width: 850px) {    
+    #channels {    
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Larger columns for landscape */    
+        grid-template-rows: repeat(3, 1fr); /* Keep 3 rows */    
+        max-height: 80vh; /* Ensure grid stays within viewport */    
+    }    
+}    
+
+/* Responsive Adjustments for Mobile Portrait Mode */    
 @media screen and (max-width: 850px) {    
     #container {    
         flex-direction: column;    
@@ -161,6 +184,7 @@ video {
 
     #channels {    
         grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); /* Smaller columns for mobile */    
+        grid-template-rows: repeat(3, 1fr); /* Always 3 rows */    
         max-height: 50vh;    
     }    
 
