@@ -1,40 +1,40 @@
 #EXTM3U
-#EXTINF:-1 tvg-logo="https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-anc-global-dash-abscbnono/4050d5d4-258e-4a66-af15-4415a8159d51/index.mpd" group-title="ABS-CBN", ANC
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/ABS-CBN_News_Channel_%282015%29.svg/220px-ABS-CBN_News_Channel_%282015%29.svg.png" group-title="ABS-CBN", ANC
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=4bbdc78024a54662854b412d01fafa16:6039ec9b213aca913821677a28bd78ae
 https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-anc-global-dash-abscbnono/4050d5d4-258e-4a66-af15-4415a8159d51/index.mpd
 
-#EXTINF:-1 tvg-logo="https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-cinemaone-dash-abscbnono/8eb26ef9-f47b-43db-a3ac-30997a71e0fd/index.mpd" group-title="ABS-CBN", Cinema One
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/6/6d/Cinema_One_2013_logo.svg/1200px-Cinema_One_2013_logo.svg.png" group-title="ABS-CBN", Cinema One
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=58d0e56991194043b8fb82feb4db7276:d68f41b59649676788889e19fb10d22c
 https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-cinemaone-dash-abscbnono/8eb26ef9-f47b-43db-a3ac-30997a71e0fd/index.mpd
 
-#EXTINF:-1 tvg-logo="https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-cinemo-dash-abscbnono/9cde7a90-83ce-440a-bfdf-3ef665043da0/index.mpd" group-title="ABS-CBN", Cinemo!
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/en/2/2b/Cinemo_logo_vectorized.svg" group-title="ABS-CBN", Cinemo!
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=aa8aebe35ccc4541b7ce6292efcb1bfb:aab1df109d22fc5d7e3ec121ddf24e5f
 https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-cinemo-dash-abscbnono/9cde7a90-83ce-440a-bfdf-3ef665043da0/index.mpd
 
-#EXTINF:-1 tvg-logo="https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-abscbn-gma-x7-dash-abscbnono/index.mpd" group-title="ABS-CBN", GMA Pinoy TV
+#EXTINF:-1 tvg-logo="https://static.wikia.nocookie.net/logopedia/images/7/7f/GMA_Pinoy_TV_%282011%29.png/revision/latest?cb=20230617204705" group-title="ABS-CBN", GMA Pinoy TV
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=c95ed4c44b0b4f7fa1c6ebbbbaab21a1:47635b8e885e19f2ccbdff078c207058
 https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-abscbn-gma-x7-dash-abscbnono/index.mpd
 
-#EXTINF:-1 tvg-logo="https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-kapcha-dash-abscbnono/2c3c3166-4466-4f60-a660-e3da7e30c54b/index.mpd" group-title="ABS-CBN", Kapamilya Channel
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Kapamilya_Channel_Logo_2020.svg/1280px-Kapamilya_Channel_Logo_2020.svg.png" group-title="ABS-CBN", Kapamilya Channel
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=bd17afb5dc9648a39be79ee3634dd4b8:3ecf305d54a7729299b93a3d69c02ea5
 https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-kapcha-dash-abscbnono/2c3c3166-4466-4f60-a660-e3da7e30c54b/index.mpd
 
-#EXTINF:-1 tvg-logo="https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-myxnola-dash-abscbnono/8b982c19-d80a-4b3a-a4fe-aa372d686b89/index.mpd" group-title="ABS-CBN", MYX
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Myxphlogo.svg/1200px-Myxphlogo.svg.png" group-title="ABS-CBN", MYX
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=f40a52a3ac9b4702bdd5b735d910fd2f:5ce1bc7f06b494c276252b4d13c90e51
 https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-myxnola-dash-abscbnono/8b982c19-d80a-4b3a-a4fe-aa372d686b89/index.mpd
 
-#EXTINF:-1 tvg-logo="https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-tfcasia-dash-abscbnono/a66558dd-011c-45de-9f3a-1026db7ee97f/index.mpd" group-title="ABS-CBN", TFC Asia
+#EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmuefP5tedWc_G-ks84CE4Oq-zBGuQgmRXyhO81rlZhA_fwrl1z_s-ZuwT&s=10" group-title="ABS-CBN", TFC Asia
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=9568cc84e1d944f38eac304517eab6fd:f12142af8f39b3bab79d3679d3665ebe
 https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-tfcasia-dash-abscbnono/a66558dd-011c-45de-9f3a-1026db7ee97f/index.mpd
 
-#EXTINF:-1 tvg-logo="https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-teleradyo-dash-abscbnono/9680b064-bd04-4f45-8171-620ae53ff657/index.mpd" group-title="ABS-CBN", TeleRadyo
+#EXTINF:-1 tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/2/2e/TeleRadyo_Serbisyo_logo.svg/1200px-TeleRadyo_Serbisyo_logo.svg.png" group-title="ABS-CBN", TeleRadyo
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=47c093e0c9fd4f80839a0337da3dd876:50547394045b3d047dc7d92f57b5fb33
 https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01006-abs-cbn-teleradyo-dash-abscbnono/9680b064-bd04-4f45-8171-620ae53ff657/index.mpd
