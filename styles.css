@@ -15,6 +15,7 @@ body {
 /* Main Container */
 #container {
     display: flex;
+    flex-direction: row;
     width: 100%;
     height: 100vh;
     overflow: hidden;
@@ -24,7 +25,7 @@ body {
 #video-container {
     position: relative;
     flex: 3;
-    height: 100vh;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -42,7 +43,7 @@ video {
 /* Channel List */
 #channel-list {
     flex: 1;
-    height: 100vh;
+    height: 100%;
     overflow-y: auto;
     background: #111;
     padding: 10px;
@@ -96,9 +97,8 @@ video {
     }
 
     #video-container {
-        flex: none;
         width: 100%;
-        height: 50vh;
+        height: 50vh; /* Adjust video height for small screens */
     }
 
     video {
@@ -107,11 +107,11 @@ video {
     }
 
     #channel-list {
-        flex: none;
         width: 100%;
-        height: 50vh;
+        height: 50vh; /* Adjust channel list height for small screens */
         border-left: none;
         border-top: 2px solid #222;
+        flex: none;
     }
 
     .channel-btn {
