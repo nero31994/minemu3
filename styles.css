@@ -1,176 +1,188 @@
 /* General Styles */
-body {  
-    display: flex;  
-    flex-direction: column;  
-    align-items: center;  
-    justify-content: center;  
-    height: 100vh;  
-    margin: 0;  
-    background-color: #000;  
-    color: white;  
-    font-family: Arial, sans-serif;  
-    overflow: hidden;  
-}  
+body {    
+    display: flex;    
+    flex-direction: column;    
+    align-items: center;    
+    justify-content: center;    
+    height: 100vh;    
+    margin: 0;    
+    background-color: #000;    
+    color: white;    
+    font-family: Arial, sans-serif;    
+    overflow: hidden;    
+}    
 
-/* Main Container */
-#container {  
-    display: flex;  
-    flex-direction: row;  
-    align-items: flex-start;  
-    width: 100%;  
-    height: 100vh;  
-    gap: 10px;  
-    padding: 10px;  
-    box-sizing: border-box;  
-}  
+/* Main Container */    
+#container {    
+    display: flex;    
+    flex-direction: row;    
+    align-items: flex-start;    
+    width: 100%;    
+    height: 100vh;    
+    gap: 10px;    
+    padding: 10px;    
+    box-sizing: border-box;    
+}    
 
-/* Video Player Container */
-#video-container {  
-    position: relative;  
-    flex: 3;  
-    width: 70%;  
-    max-width: 900px;  
-    height: 100%;  
-    background: rgba(0, 0, 0, 0.3);  
-    backdrop-filter: blur(15px);  
-    border-radius: 10px;  
-    overflow: hidden;  
-    display: flex;  
-    align-items: center;  
-    justify-content: center;  
-}  
+/* Video Player Container */    
+#video-container {    
+    position: relative;    
+    flex: 3;    
+    width: 70%;    
+    max-width: 900px;    
+    height: 100%;    
+    background: black;    
+    border-radius: 10px;    
+    overflow: hidden;    
+    display: flex;    
+    align-items: center;    
+    justify-content: center;    
+    border: 1px solid #111;    
+}    
 
-video {  
-    width: 100%;  
-    height: 100%;  
-    object-fit: cover;  
-    border-radius: 10px;  
-    background: black;  
-}  
+video {    
+    width: 100%;    
+    height: 100%;    
+    object-fit: cover;    
+    border-radius: 10px;    
+    background: black;    
+}    
 
 /* Channel Logo Overlay */
-#logo {  
-    position: absolute;  
-    top: 10px;  
-    left: 10px;  
-    width: 50px;  
-    background: rgba(0, 0, 0, 0.4);  
-    backdrop-filter: blur(10px);  
-    padding: 5px;  
-    border-radius: 5px;  
-}  
+#logo {    
+    position: absolute;    
+    top: 10px;    
+    left: 10px;    
+    width: 50px;    
+    background: rgba(0, 0, 0, 0.8);    
+    padding: 5px;    
+    border-radius: 5px;    
+}    
 
-/* Channel List Sidebar */
-#channel-list {  
-    flex: 1;  
-    height: 100%;  
-    max-width: 300px;  
-    min-width: 250px;  
-    background: rgba(20, 20, 20, 0.5);  
-    backdrop-filter: blur(15px);  
-    border-radius: 10px;  
-    border: 1px solid rgba(255, 255, 255, 0.2);  
-    overflow: hidden;  
-    display: flex;  
-    flex-direction: column;  
-}  
+/* Channel List Sidebar */    
+#channel-list {    
+    flex: 1;    
+    height: 100%;    
+    max-width: 300px;    
+    min-width: 250px;    
+    background: rgba(0, 0, 0, 0.9);    
+    backdrop-filter: blur(10px);    
+    border-radius: 10px;    
+    border: 1px solid #111;    
+    overflow: hidden;    
+    display: flex;    
+    flex-direction: column;    
+}    
 
-/* Search Bar */
-.search-bar-container {  
-    padding: 10px;  
-    background: rgba(34, 34, 34, 0.5);  
-    backdrop-filter: blur(10px);  
-    position: sticky;  
-    top: 0;  
-    z-index: 10;  
-    border-radius: 10px 10px 0 0;
-}  
+/* Search Bar */    
+.search-bar-container {    
+    padding: 10px;    
+    background: #000;    
+    position: sticky;    
+    top: 0;    
+    z-index: 10;    
+}    
 
-#searchInput {  
-    width: 100%;  
-    padding: 8px;  
-    border: 1px solid rgba(255, 255, 255, 0.2);  
-    border-radius: 5px;  
-    background: rgba(51, 51, 51, 0.5);  
-    backdrop-filter: blur(10px);  
-    color: white;  
-    outline: none;  
-}  
+#searchInput {    
+    width: 100%;    
+    padding: 8px;    
+    border: 1px solid #222;    
+    border-radius: 5px;    
+    background: #111;    
+    color: white;    
+    outline: none;    
+}    
 
-/* Channel List */
-#channels {  
-    flex-grow: 1;  
-    overflow-y: auto;  
-    padding: 10px;  
-}  
+/* Channel List - Now in Grid Layout */    
+#channels {    
+    flex-grow: 1;    
+    overflow-y: auto;    
+    padding: 10px;    
+    display: grid;    
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Responsive grid layout */    
+    gap: 10px;    
+    justify-content: center;    
+    align-content: start;    
+}    
 
-/* Scrollbar Customization */
-#channels::-webkit-scrollbar {  
-    width: 8px;  
-}  
+/* Scrollbar Customization */    
+#channels::-webkit-scrollbar {    
+    width: 8px;    
+}    
 
-#channels::-webkit-scrollbar-thumb {  
-    background: rgba(255, 255, 255, 0.3);  
-    border-radius: 5px;  
-}  
+#channels::-webkit-scrollbar-thumb {    
+    background: #222;    
+    border-radius: 5px;    
+}    
 
-/* Channel Buttons */
-.channel-btn {  
-    display: flex;  
-    align-items: center;  
-    gap: 10px;  
-    background: rgba(34, 34, 34, 0.6);  
-    backdrop-filter: blur(10px);  
-    color: white;  
-    padding: 12px;  
-    border: none;  
-    cursor: pointer;  
-    border-radius: 5px;  
-    transition: 0.3s;  
-    width: 100%;  
-    text-align: left;  
-    font-size: 14px;  
-}  
+/* Channel Buttons (Now Grid Items) */    
+.channel-btn {    
+    display: flex;    
+    flex-direction: column;    
+    align-items: center;    
+    justify-content: center;    
+    background: #000;    
+    color: white;    
+    padding: 15px;    
+    border: 1px solid #111;    
+    cursor: pointer;    
+    border-radius: 8px;    
+    transition: 0.3s;    
+    text-align: center;    
+    font-size: 14px;    
+    width: 100%;    
+}    
 
-.channel-btn:hover {  
-    background: rgba(68, 68, 68, 0.6);  
-}  
+.channel-btn:hover {    
+    background: #111;    
+}    
 
-/* Channel Logo */
-.channel-logo {  
-    width: 40px;  
-    height: 40px;  
-    border-radius: 5px;  
-    background: rgba(255, 255, 255, 0.3);  
-    backdrop-filter: blur(10px);  
-}  
+/* Channel Logo */    
+.channel-logo {    
+    width: 50px;    
+    height: 50px;    
+    border-radius: 5px;    
+    background: #000;    
+    border: 1px solid #222;    
+}    
 
-/* Responsive Design */
-@media screen and (max-width: 850px) {  
-    #container {  
-        flex-direction: column;  
-        height: 100vh;  
-        padding: 5px;  
-    }  
+/* Responsive Grid Adjustments */    
+@media screen and (max-width: 850px) {    
+    #container {    
+        flex-direction: column;    
+        height: 100vh;    
+        padding: 5px;    
+    }    
 
-    #video-container {  
-        width: 100%;  
-        height: 45vh;  
-        flex: none;  
-    }  
+    #video-container {    
+        width: 100%;    
+        height: 45vh;    
+        flex: none;    
+    }    
 
-    video {  
-        width: 100%;  
-        height: 100%;  
-    }  
+    video {    
+        width: 100%;    
+        height: 100%;    
+    }    
 
-    #channel-list {  
-        width: 100%;  
-        max-height: 55vh;  
-        min-width: unset;  
-    }  
+    #channel-list {    
+        width: 100%;    
+        max-height: 55vh;    
+        min-width: unset;    
+    }    
 
-    #channels {  
-        max-height: 50vh;  
-    }  
-    }
+    #channels {    
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); /* Smaller columns for mobile */    
+        max-height: 50vh;    
+    }    
+
+    .channel-logo {    
+        width: 40px;    
+        height: 40px;    
+    }    
+
+    .channel-btn {    
+        padding: 10px;    
+        font-size: 12px;    
+    }    
+}
