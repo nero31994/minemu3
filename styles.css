@@ -59,23 +59,10 @@ video {
     display: flex;
     flex-direction: column;
     height: 100%;
-    overflow: hidden;
     position: relative;
 }
 
-/* Semi-Transparent Overlay */
-#channel-list::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 0;
-}
-
-/* Search Bar (Fixed at the Top) */
+/* Search Bar (Fixed at the Top of the Channel List) */
 .search-bar-container {
     position: sticky;
     top: 0;
@@ -100,7 +87,7 @@ video {
 .channel-list-content {
     flex-grow: 1;
     overflow-y: auto;
-    height: 100%;
+    height: calc(100% - 50px); /* Ensures it takes remaining space */
     padding: 10px;
     position: relative;
     z-index: 1;
