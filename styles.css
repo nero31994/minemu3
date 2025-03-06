@@ -1,64 +1,90 @@
 /* General Styles */
 body {
-    margin: 0;
-    padding: 0;
-    background-color: #000;
-    color: white;
-    font-family: Arial, sans-serif;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    overflow: hidden;
+    margin: 0;
+    background-color: #000;
+    color: white;
+    font-family: Arial, sans-serif;
 }
 
 /* Main Container */
 #container {
     display: flex;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-}
-
-/* Video Container */
-#video-container {
-    position: relative;
-    flex: 3;
-    height: 100%;
-    background: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 70%;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 90%;
+    max-width: 1200px;
+    gap: 20px;
+    height: 90vh;
 }
 
 /* Video Player */
+#video-container {
+    position: relative;
+    flex: 3;
+    max-width: 800px;
+    width: 100%;
+    height: 100%;
+}
+
 video {
     width: 100%;
     height: 100%;
-    object-fit: cover;
     background: black;
 }
 
-/* Player Logo (Channel Logo on Video) */
+/* Channel Logo */
 #logo {
     position: absolute;
     top: 10px;
     left: 10px;
-    width: 60px;
-    height: auto;
-    background: rgba(0, 0, 0, 0.6);
+    width: 50px;
+    background: rgba(0, 0, 0, 0.5);
     padding: 5px;
     border-radius: 5px;
-    max-width: 15%;
 }
+
+/* Channel List Container with GIF Background */
+#channel-list {
+    flex: 1;
+    max-height: 100%;
+    overflow-y: auto;
+    background: url('https://i.makeagif.com/media/6-11-2023/B0DhIA.gif') no-repeat center center; /* Replace with your GIF URL */
+    background-size: cover;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #333;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Semi-Transparent Overlay for Better Readability */
+#channel-list::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Adjust transparency */
+    z-index: 0;
+}
+
 /* Search Bar */
 .search-bar-container {
+    width: 100%;
     padding: 10px;
-    background: #222;
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    background: rgba(34, 34, 34, 0.8);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1; /* Ensures search bar is above the GIF */
 }
 
 #searchInput {
@@ -68,42 +94,33 @@ video {
     border-radius: 5px;
     background: #333;
     color: white;
-    outline: none;
-}
-/* Channel List */
-#channel-list {
-    flex: 1;
-    height: 100%;
-    overflow-y: auto;
-    background: #111;
-    padding: 10px;
-    border-left: 2px solid #222;
-    display: flex;
-    flex-direction: column;
-    min-width: 30%;
+    font-size: 14px;
 }
 
-/* Channel Button */
+/* Channel Buttons */
 .channel-btn {
     display: flex;
     align-items: center;
     gap: 10px;
-    background: #222;
+    background: rgba(34, 34, 34, 0.8);
     color: white;
-    padding: 12px;
+    padding: 10px;
     border: none;
     cursor: pointer;
     border-radius: 5px;
     transition: 0.3s;
     width: 100%;
     text-align: left;
+    margin-bottom: 5px;
+    position: relative;
+    z-index: 1;
 }
 
 .channel-btn:hover {
-    background: #444;
+    background: rgba(68, 68, 68, 0.9);
 }
 
-/* Channel Logo */
+/* Channel Logos */
 .channel-logo {
     width: 40px;
     height: 40px;
@@ -111,26 +128,18 @@ video {
     background: white;
 }
 
-/* Channel List Scrollbar */
-#channel-list::-webkit-scrollbar {
-    width: 6px;
-}
-
-#channel-list::-webkit-scrollbar-thumb {
-    background: #333;
-    border-radius: 10px;
-}
-
-/* Responsive Design (Portrait Mode) */
+/* Responsive Design */
 @media screen and (max-width: 850px) {
     #container {
         flex-direction: column;
+        align-items: center;
+        height: 100vh;
     }
 
     #video-container {
         width: 100%;
-        height: 50vh; /* Fix video height */
-        min-height: 50vh;
+        height: 50vh;
+        max-height: 360px;
     }
 
     video {
@@ -138,26 +147,17 @@ video {
         height: 100%;
     }
 
-    #logo {
-        width: 50px; /* Adjust size on small screens */
-        max-width: 10%;
-    }
-
     #channel-list {
         width: 100%;
-        height: 50vh; /* Fix channel list height */
-        min-height: 50vh;
-        border-left: none;
-        border-top: 2px solid #222;
+        max-height: 50vh;
     }
 
-    .channel-btn {
-        padding: 10px;
-        font-size: 14px;
+    .search-bar-container {
+        padding: 8px;
     }
 
-    .channel-logo {
-        width: 30px;
-        height: 30px;
+    #searchInput {
+        width: 95%;
+        padding: 6px;
     }
 }
