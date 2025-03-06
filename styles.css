@@ -51,7 +51,6 @@ video {
 /* Channel List Container */
 #channel-list {
     flex: 1;
-    max-height: 100%;
     background: url('https://miro.medium.com/v2/resize:fit:1400/1*U4qm92ycN-TQ1_YIyUTblw.gif') no-repeat center center; /* Replace with your GIF URL */
     background-size: cover;
     border-radius: 10px;
@@ -59,6 +58,8 @@ video {
     width: 250px;
     display: flex;
     flex-direction: column;
+    height: 100%;
+    overflow: hidden;
     position: relative;
 }
 
@@ -99,8 +100,10 @@ video {
 .channel-list-content {
     flex-grow: 1;
     overflow-y: auto;
-    max-height: calc(100% - 50px); /* Prevents search bar from scrolling */
+    height: calc(100% - 50px); /* Adjust based on search bar height */
     padding: 10px;
+    position: relative;
+    z-index: 1;
 }
 
 /* Channel Buttons */
@@ -165,5 +168,9 @@ video {
     #searchInput {
         width: 95%;
         padding: 6px;
+    }
+
+    .channel-list-content {
+        max-height: calc(50vh - 50px); /* Prevents overlapping */
     }
 }
