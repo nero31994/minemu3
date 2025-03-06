@@ -25,19 +25,32 @@ body {
     position: relative;
     flex: 3;
     height: 100%;
+    background: black;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: black;
-    min-width: 70%; /* Prevents video from taking full width */
+    min-width: 70%;
 }
 
-/* Video Element */
+/* Video Player */
 video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     background: black;
+}
+
+/* Player Logo (Channel Logo on Video) */
+#logo {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 60px;
+    height: auto;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 5px;
+    border-radius: 5px;
+    max-width: 15%;
 }
 
 /* Channel List */
@@ -50,7 +63,7 @@ video {
     border-left: 2px solid #222;
     display: flex;
     flex-direction: column;
-    min-width: 30%; /* Prevents channel list from being covered */
+    min-width: 30%;
 }
 
 /* Channel Button */
@@ -106,6 +119,11 @@ video {
     video {
         width: 100%;
         height: 100%;
+    }
+
+    #logo {
+        width: 50px; /* Adjust size on small screens */
+        max-width: 10%;
     }
 
     #channel-list {
