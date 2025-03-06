@@ -1,21 +1,20 @@
 /* General Styles */
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
     margin: 0;
+    padding: 0;
     background-color: #000;
     color: white;
     font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
     overflow: hidden;
 }
 
 /* Main Container */
 #container {
     display: flex;
-    flex-direction: row;
     width: 100%;
     height: 100vh;
     overflow: hidden;
@@ -30,13 +29,14 @@ body {
     align-items: center;
     justify-content: center;
     background: black;
+    min-width: 70%; /* Prevents video from taking full width */
 }
 
 /* Video Element */
 video {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     background: black;
 }
 
@@ -50,6 +50,7 @@ video {
     border-left: 2px solid #222;
     display: flex;
     flex-direction: column;
+    min-width: 30%; /* Prevents channel list from being covered */
 }
 
 /* Channel Button */
@@ -90,7 +91,7 @@ video {
     border-radius: 10px;
 }
 
-/* Responsive Design */
+/* Responsive Design (Portrait Mode) */
 @media screen and (max-width: 850px) {
     #container {
         flex-direction: column;
@@ -98,7 +99,8 @@ video {
 
     #video-container {
         width: 100%;
-        height: 50vh; /* Adjust video height for small screens */
+        height: 50vh; /* Fix video height */
+        min-height: 50vh;
     }
 
     video {
@@ -108,10 +110,10 @@ video {
 
     #channel-list {
         width: 100%;
-        height: 50vh; /* Adjust channel list height for small screens */
+        height: 50vh; /* Fix channel list height */
+        min-height: 50vh;
         border-left: none;
         border-top: 2px solid #222;
-        flex: none;
     }
 
     .channel-btn {
