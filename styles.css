@@ -51,27 +51,24 @@ video {
 /* Channel List Container */
 #channel-list {
     flex: 1;
-    background: url('your-gif-url.gif') no-repeat center center; /* Replace with your GIF URL */
-    background-size: cover;
+    max-height: 100%;
+    overflow-y: auto;
+    background: #111;
+    padding: 10px;
     border-radius: 10px;
     border: 1px solid #333;
     width: 250px;
     display: flex;
     flex-direction: column;
-    height: 100%;
-    overflow: hidden;
-    position: relative;
 }
 
-/* Search Bar (Fixed at the Top of the Channel List) */
+/* Search Bar */
 .search-bar-container {
-    position: sticky;
-    top: 0;
     width: 100%;
     padding: 10px;
-    background: rgba(34, 34, 34, 0.9);
-    border-radius: 5px 5px 0 0;
-    z-index: 10;
+    background: #222;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
 
 #searchInput {
@@ -84,22 +81,12 @@ video {
     font-size: 14px;
 }
 
-/* Scrollable Channel List */
-.channel-list-content {
-    flex-grow: 1;
-    overflow-y: auto;
-    height: calc(100% - 50px); /* Ensures it takes remaining space */
-    padding: 10px;
-    position: relative;
-    z-index: 1;
-}
-
 /* Channel Buttons */
 .channel-btn {
     display: flex;
     align-items: center;
     gap: 10px;
-    background: rgba(34, 34, 34, 0.8);
+    background: #222;
     color: white;
     padding: 10px;
     border: none;
@@ -109,12 +96,10 @@ video {
     width: 100%;
     text-align: left;
     margin-bottom: 5px;
-    position: relative;
-    z-index: 1;
 }
 
 .channel-btn:hover {
-    background: rgba(68, 68, 68, 0.9);
+    background: #444;
 }
 
 /* Channel Logos */
@@ -147,8 +132,6 @@ video {
     #channel-list {
         width: 100%;
         max-height: 50vh;
-        display: flex;
-        flex-direction: column;
     }
 
     .search-bar-container {
@@ -158,10 +141,5 @@ video {
     #searchInput {
         width: 95%;
         padding: 6px;
-    }
-
-    .channel-list-content {
-        max-height: calc(50vh - 50px); /* Prevents overlapping */
-        overflow-y: auto;
     }
 }
