@@ -48,14 +48,12 @@ video {
     border-radius: 5px;
 }
 
-/* Channel List Container with GIF Background */
+/* Channel List Container */
 #channel-list {
     flex: 1;
     max-height: 100%;
-    overflow-y: auto;
-    background: url('https://i.makeagif.com/media/6-11-2023/B0DhIA.gif') no-repeat center center; /* Replace with your GIF URL */
+    background: url('https://miro.medium.com/v2/resize:fit:1400/1*U4qm92ycN-TQ1_YIyUTblw.gif') no-repeat center center; /* Replace with your GIF URL */
     background-size: cover;
-    padding: 10px;
     border-radius: 10px;
     border: 1px solid #333;
     width: 250px;
@@ -64,7 +62,7 @@ video {
     position: relative;
 }
 
-/* Semi-Transparent Overlay for Better Readability */
+/* Semi-Transparent Overlay */
 #channel-list::before {
     content: "";
     position: absolute;
@@ -72,19 +70,19 @@ video {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Adjust transparency */
+    background: rgba(0, 0, 0, 0.5);
     z-index: 0;
 }
 
-/* Search Bar */
+/* Search Bar (Fixed at the Top) */
 .search-bar-container {
+    position: sticky;
+    top: 0;
     width: 100%;
     padding: 10px;
-    background: rgba(34, 34, 34, 0.8);
-    border-radius: 5px;
-    margin-bottom: 10px;
-    position: relative;
-    z-index: 1; /* Ensures search bar is above the GIF */
+    background: rgba(34, 34, 34, 0.9);
+    border-radius: 5px 5px 0 0;
+    z-index: 10;
 }
 
 #searchInput {
@@ -95,6 +93,14 @@ video {
     background: #333;
     color: white;
     font-size: 14px;
+}
+
+/* Channel List Scrollable */
+.channel-list-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    max-height: calc(100% - 50px); /* Prevents search bar from scrolling */
+    padding: 10px;
 }
 
 /* Channel Buttons */
