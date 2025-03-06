@@ -6,8 +6,6 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     const m3uUrl = "https://raw.githubusercontent.com/nero31994/minemu3/refs/heads/main/CIGNAL%20-%202025-03-06T191919.914.m3u"; // Change this to your actual M3U playlist URL
     const channels = [];
-    const categories = new Set(); // Store unique categories
-    let currentCategory = "All Channels"; // Default category
     let currentChannelIndex = 0; // Track current channel for autoplay
 
     async function fetchM3U() {
@@ -30,15 +28,11 @@ document.addEventListener('DOMContentLoaded', async function () {
             if (line.startsWith("#EXTINF")) {
                 const match = line.match(/tvg-logo="([^"]+)" group-title="([^"]+)", (.+)/);
                 if (match) {
-                    const category = match[2].trim();
-                    categories.add(category); // Store unique category
-
                     currentChannel = {
                         name: match[3].trim(),
                         logo: match[1],
                         manifest: "",
-                        key: {},
-                        category: category
+                        key: {}
                     };
                 }
             } else if (line.startsWith("#KODIPROP:inputstream.adaptive.license_key=")) {
@@ -56,7 +50,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
 
         if (channels.length > 0) {
-            generateCategoryDropdown();
             generateChannelList();
             loadChannel(0, true); // Autoplay first channel on load
         } else {
@@ -64,49 +57,16 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     }
 
-    function generateCategoryDropdown() {
-        const categoryContainer = document.getElementById("categoryContainer");
-        categoryContainer.innerHTML = "";
-
-        const select = document.createElement("select");
-        select.id = "categorySelect";
-        select.className = "category-select";
-
-        // Add "All Channels" as the default option
-        const allOption = document.createElement("option");
-        allOption.value = "All Channels";
-        allOption.textContent = "All Channels";
-        select.appendChild(allOption);
-
-        // Add categories dynamically
-        categories.forEach(category => {
-            const option = document.createElement("option");
-            option.value = category;
-            option.textContent = category;
-            select.appendChild(option);
-        });
-
-        // Handle category selection
-        select.addEventListener("change", function () {
-            currentCategory = this.value;
-            generateChannelList();
-        });
-
-        categoryContainer.appendChild(select);
-    }
-
     function generateChannelList() {
         const listContainer = document.getElementById("channels");
         listContainer.innerHTML = "";
 
         channels.forEach((channel, index) => {
-            if (currentCategory === "All Channels" || channel.category === currentCategory) {
-                const btn = document.createElement("button");
-                btn.className = "channel-btn";
-                btn.innerHTML = `<img class="channel-logo" src="${channel.logo}" alt="${channel.name}"> ${channel.name}`;
-                btn.onclick = () => loadChannel(index);
-                listContainer.appendChild(btn);
-            }
+            const btn = document.createElement("button");
+            btn.className = "channel-btn";
+            btn.innerHTML = `<img class="channel-logo" src="${channel.logo}" alt="${channel.name}"> ${channel.name}`;
+            btn.onclick = () => loadChannel(index);
+            listContainer.appendChild(btn);
         });
     }
 
