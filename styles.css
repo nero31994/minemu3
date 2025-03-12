@@ -145,21 +145,24 @@ video {
     border: 1px solid #555;
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3);
 }
-
 /* Channel Logo */
 .channel-logo {
-    width: 60px; /* Slightly larger logo */
-    height: 60px;
-    border-radius: 8px;
+    width: 55px;  /* Adjusted for better proportion */
+    height: 55px;
+    border-radius: 5px;
     background: #000;
     border: 1px solid #333;
-    margin-right: 15px; /* More space between logo and text */
-    transition: transform 0.3s ease-in-out;
+    margin-right: 12px;  /* Balanced spacing */
+    object-fit: contain;  /* Ensures PNG transparency fits well */
+    padding: 5px; /* Prevents logos from touching edges */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Logo Animation on Hover */
 .channel-btn:hover .channel-logo {
-    transform: rotate(5deg);
+    transform: scale(1.05);
 }
 
 /* Fade-in Animation for List Items */
