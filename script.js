@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', async function () {
         return;
     }
 
-    const m3uUrl = "https://raw.githubusercontent.com/nero31994/minemu3/refs/heads/main/CIGNAL%20-%202025-03-06T191919.914.m3u"; // Change this to your actual M3U playlist URL
+    const m3uUrl = "https://raw.githubusercontent.com/nero31994/minemu3/refs/heads/main/CIGNAL%20-%202025-03-06T191919.914.m3u";
     const channels = [];
-    let currentChannelIndex = 0; // Track current channel for autoplay
+    let currentChannelIndex = 0;
 
     async function fetchM3U() {
         try {
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         if (channels.length > 0) {
             generateChannelList();
-            loadChannel(0, true); // Autoplay first channel on load
+            loadChannel(0, true);
         } else {
             alert("No channels found in the playlist.");
         }
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     async function loadChannel(index, autoplay = false) {
         const channel = channels[index];
-        currentChannelIndex = index; // Update current channel index
+        currentChannelIndex = index;
 
         try {
             logo.src = channel.logo;
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             console.log(`${channel.name} loaded successfully!`);
 
             if (autoplay || !video.paused) {
-                video.play(); // Autoplay or continue playing if user switched channels
+                video.play();
             }
         } catch (error) {
             console.error('Error loading video:', error);
@@ -114,7 +114,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     }
 
-    // Search Bar Functionality
     document.getElementById("searchInput").addEventListener("input", function () {
         const searchTerm = this.value.toLowerCase();
         const buttons = document.querySelectorAll(".channel-btn");
@@ -123,6 +122,45 @@ document.addEventListener('DOMContentLoaded', async function () {
             const text = btn.textContent.toLowerCase();
             btn.style.display = text.includes(searchTerm) ? "flex" : "none";
         });
+    });
+
+    // Remote Control Support
+    document.addEventListener("keydown", function (event) {
+        switch (event.key) {
+            case "ArrowUp":
+                if (currentChannelIndex > 0) {
+                    loadChannel(currentChannelIndex - 1);
+                }
+                break;
+            case "ArrowDown":
+                if (currentChannelIndex < channels.length - 1) {
+                    loadChannel(currentChannelIndex + 1);
+                }
+                break;
+            case "Enter":
+                video.play();
+                break;
+            case "Backspace":
+            case "Escape":
+                video.pause();
+                break;
+            case "ArrowLeft":
+                video.volume = Math.max(video.volume - 0.1, 0);
+                break;
+            case "ArrowRight":
+                video.volume = Math.min(video.volume + 0.1, 1);
+                break;
+            case "m":
+                video.muted = !video.muted;
+                break;
+            case " ":
+                if (video.paused) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+                break;
+        }
     });
 
     fetchM3U();
