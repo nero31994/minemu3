@@ -4,10 +4,11 @@ document.addEventListener('DOMContentLoaded', async function () {
         return;
     }
 
-    const m3uUrl = "https://raw.githubusercontent.com/nero31994/minemu3/refs/heads/main/CIGNAL%20-%202025-03-06T191919.914.m3u";
+    const m3uUrl = "https://raw.githubusercontent.com/nero31994/minemu3/refs/heads/main/CIGNAL%20-%202025-03-06T191919.914.m3u"; 
     const channels = [];
     let currentChannelIndex = 0;
 
+    // Fetch & Parse M3U
     async function fetchM3U() {
         try {
             const response = await fetch(m3uUrl);
@@ -57,6 +58,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     }
 
+    // Generate Channel List
     function generateChannelList() {
         const listContainer = document.getElementById("channels");
         listContainer.innerHTML = "";
@@ -68,20 +70,18 @@ document.addEventListener('DOMContentLoaded', async function () {
             btn.onclick = () => loadChannel(index);
             listContainer.appendChild(btn);
         });
+
+        updateSelectedChannel(); // Ensure first channel is highlighted
     }
 
+    // Video Player Setup
     const video = document.getElementById('video');
     const logo = document.getElementById('logo');
     const player = new shaka.Player(video);
 
     player.configure({
-        drm: {
-            servers: {},
-            clearKeys: {}
-        },
-        streaming: {
-            bufferingGoal: 10
-        }
+        drm: { servers: {}, clearKeys: {} },
+        streaming: { bufferingGoal: 10 }
     });
 
     player.addEventListener('error', (event) => {
@@ -90,20 +90,18 @@ document.addEventListener('DOMContentLoaded', async function () {
     });
 
     async function loadChannel(index, autoplay = false) {
-        const channel = channels[index];
+        if (index < 0 || index >= channels.length) return; 
+
         currentChannelIndex = index;
+        const channel = channels[index];
 
         try {
             logo.src = channel.logo;
-
-            player.configure({
-                drm: {
-                    clearKeys: channel.key
-                }
-            });
-
+            player.configure({ drm: { clearKeys: channel.key } });
             await player.load(channel.manifest);
             console.log(`${channel.name} loaded successfully!`);
+
+            updateSelectedChannel();
 
             if (autoplay || !video.paused) {
                 video.play();
@@ -114,7 +112,16 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     }
 
-    document.getElementById("searchInput").addEventListener("input", function () {
+    function updateSelectedChannel() {
+        const buttons = document.querySelectorAll(".channel-btn");
+        buttons.forEach((btn, index) => {
+            btn.classList.toggle("selected", index === currentChannelIndex);
+        });
+    }
+
+    // 🔍 Search Bar Functionality
+    const searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("input", function () {
         const searchTerm = this.value.toLowerCase();
         const buttons = document.querySelectorAll(".channel-btn");
 
@@ -124,41 +131,20 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
     });
 
-    // Remote Control Support
-    document.addEventListener("keydown", function (event) {
+    // 🎮 Remote Control & Keyboard Navigation
+    document.addEventListener("keydown", (event) => {
         switch (event.key) {
             case "ArrowUp":
-                if (currentChannelIndex > 0) {
-                    loadChannel(currentChannelIndex - 1);
-                }
+                loadChannel(currentChannelIndex - 1);
                 break;
             case "ArrowDown":
-                if (currentChannelIndex < channels.length - 1) {
-                    loadChannel(currentChannelIndex + 1);
-                }
+                loadChannel(currentChannelIndex + 1);
                 break;
             case "Enter":
                 video.play();
                 break;
-            case "Backspace":
-            case "Escape":
-                video.pause();
-                break;
-            case "ArrowLeft":
-                video.volume = Math.max(video.volume - 0.1, 0);
-                break;
-            case "ArrowRight":
-                video.volume = Math.min(video.volume + 0.1, 1);
-                break;
-            case "m":
-                video.muted = !video.muted;
-                break;
             case " ":
-                if (video.paused) {
-                    video.play();
-                } else {
-                    video.pause();
-                }
+                video.paused ? video.play() : video.pause();
                 break;
         }
     });
