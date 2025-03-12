@@ -64,7 +64,7 @@ video {
     flex: 1;
     height: 100%;
     max-width: 300px;
-    min-width: 200px;
+    min-width: 250px;
     background: rgba(0, 0, 0, 0.9);
     backdrop-filter: blur(10px);
     border-radius: 10px;
@@ -93,7 +93,7 @@ video {
     outline: none;
 }
 
-/* Channel List */
+/* Channel List - Ensuring Proper Layout */
 #channels {
     flex-grow: 1;
     overflow-y: auto;
@@ -102,14 +102,17 @@ video {
     flex-direction: column;
     gap: 10px;
     justify-content: flex-start;
-    height: calc(100% - 50px);
+    max-height: calc(100% - 50px); /* Prevent overflow */
+    align-items: center; /* Centering buttons */
 }
 
-/* Channel Buttons */
+/* Channel Buttons (List Items) */
 .channel-btn {
     display: flex;
+    flex-direction: row; /* Align logo and text horizontally */
     align-items: center;
-    background: #111;
+    justify-content: flex-start;
+    background: rgba(0, 0, 0, 0.7);
     color: white;
     padding: 12px;
     border: 1px solid #222;
@@ -118,21 +121,86 @@ video {
     transition: all 0.3s ease-in-out;
     text-align: left;
     font-size: 14px;
-    width: 100%;
+    width: 90%; /* Ensures uniform width */
+    max-width: 250px; /* Prevents overly wide buttons */
+    position: relative;
+    overflow: hidden;
 }
 
+/* Hover Effect */
 .channel-btn:hover {
-    background: #222;
-    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.03);
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
 }
 
+/* Click Animation */
+.channel-btn:active {
+    transform: scale(0.97);
+}
+
+/* Selected Channel Effect */
 .channel-btn.selected {
     background: #333;
     border: 1px solid #555;
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3);
 }
 
-/* Adjustments for Mobile */
+/* Channel Logo (Aligned Left) */
+.channel-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    background: #000;
+    border: 1px solid #333;
+    margin-right: 12px;
+    object-fit: contain;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Logo Animation on Hover */
+.channel-btn:hover .channel-logo {
+    transform: rotate(5deg);
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.channel-btn {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Scrollbar Customization */
+#channels::-webkit-scrollbar {
+    width: 8px;
+}
+
+#channels::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 5px;
+}
+
+#channels::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
+
+/* Landscape Mode Adjustments */
+@media screen and (min-width: 850px) {
+    #channels {
+        max-height: 80vh; /* Ensures it stays within viewport */
+    }
+}
+
+/* Mobile Portrait Mode Adjustments */
 @media screen and (max-width: 850px) {
     #container {
         flex-direction: column;
@@ -146,13 +214,28 @@ video {
         flex: none;
     }
 
+    video {
+        width: 100%;
+        height: 100%;
+    }
+
     #channel-list {
         width: 100%;
         max-height: 55vh;
+        min-width: 50vh;
+    }
+
+    #channels {
+        max-height: 50vh;
     }
 
     .channel-logo {
         width: 40px;
         height: 40px;
+    }
+
+    .channel-btn {
+        padding: 10px;
+        font-size: 12px;
     }
 }
