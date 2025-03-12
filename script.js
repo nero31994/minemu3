@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     const channels = [];
     let currentChannelIndex = 0;
 
-    // Fetch & Parse M3U
     async function fetchM3U() {
         try {
             const response = await fetch(m3uUrl);
@@ -58,7 +57,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     }
 
-    // Generate Channel List
     function generateChannelList() {
         const listContainer = document.getElementById("channels");
         listContainer.innerHTML = "";
@@ -71,10 +69,9 @@ document.addEventListener('DOMContentLoaded', async function () {
             listContainer.appendChild(btn);
         });
 
-        updateSelectedChannel(); // Ensure first channel is highlighted
+        updateSelectedChannel();
     }
 
-    // Video Player Setup
     const video = document.getElementById('video');
     const logo = document.getElementById('logo');
     const player = new shaka.Player(video);
@@ -102,6 +99,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             console.log(`${channel.name} loaded successfully!`);
 
             updateSelectedChannel();
+            enterFullscreen(); // Auto fullscreen when channel is loaded
 
             if (autoplay || !video.paused) {
                 video.play();
@@ -119,7 +117,20 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
     }
 
-    // 🔍 Search Bar Functionality
+    // Auto Fullscreen Function
+    function enterFullscreen() {
+        if (video.requestFullscreen) {
+            video.requestFullscreen();
+        } else if (video.mozRequestFullScreen) { // Firefox
+            video.mozRequestFullScreen();
+        } else if (video.webkitRequestFullscreen) { // Chrome, Safari, Edge
+            video.webkitRequestFullscreen();
+        } else if (video.msRequestFullscreen) { // IE/Edge
+            video.msRequestFullscreen();
+        }
+    }
+
+    // Search Bar
     const searchInput = document.getElementById("searchInput");
     searchInput.addEventListener("input", function () {
         const searchTerm = this.value.toLowerCase();
@@ -131,7 +142,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
     });
 
-    // 🎮 Remote Control & Keyboard Navigation
+    // Remote & Keyboard Navigation
     document.addEventListener("keydown", (event) => {
         switch (event.key) {
             case "ArrowUp":
