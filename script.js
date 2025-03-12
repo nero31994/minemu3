@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     });
 
     async function loadChannel(index, autoplay = false) {
-        if (index < 0 || index >= channels.length) return; 
+        if (index < 0 || index >= channels.length) return;
 
         currentChannelIndex = index;
         const channel = channels[index];
@@ -99,11 +99,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             console.log(`${channel.name} loaded successfully!`);
 
             updateSelectedChannel();
-            enterFullscreen(); // Auto fullscreen when channel is loaded
+            enterFullscreenAndPlay(); // Auto fullscreen and then autoplay
 
-            if (autoplay || !video.paused) {
-                video.play();
-            }
         } catch (error) {
             console.error('Error loading video:', error);
             alert('Failed to load video.');
@@ -117,16 +114,30 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
     }
 
-    // Auto Fullscreen Function
-    function enterFullscreen() {
+    // Auto Fullscreen + Autoplay Function
+    function enterFullscreenAndPlay() {
+        function playAfterFullscreen() {
+            video.play();
+            document.removeEventListener("fullscreenchange", playAfterFullscreen);
+            document.removeEventListener("webkitfullscreenchange", playAfterFullscreen);
+            document.removeEventListener("mozfullscreenchange", playAfterFullscreen);
+            document.removeEventListener("MSFullscreenChange", playAfterFullscreen);
+        }
+
         if (video.requestFullscreen) {
+            document.addEventListener("fullscreenchange", playAfterFullscreen);
             video.requestFullscreen();
         } else if (video.mozRequestFullScreen) { // Firefox
+            document.addEventListener("mozfullscreenchange", playAfterFullscreen);
             video.mozRequestFullScreen();
         } else if (video.webkitRequestFullscreen) { // Chrome, Safari, Edge
+            document.addEventListener("webkitfullscreenchange", playAfterFullscreen);
             video.webkitRequestFullscreen();
         } else if (video.msRequestFullscreen) { // IE/Edge
+            document.addEventListener("MSFullscreenChange", playAfterFullscreen);
             video.msRequestFullscreen();
+        } else {
+            video.play(); // If fullscreen is not supported, just play the video
         }
     }
 
