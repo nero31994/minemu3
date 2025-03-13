@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     const m3uUrl = "https://raw.githubusercontent.com/nero31994/minemu3/refs/heads/main/CIGNAL%20-%202025-03-06T191919.914.m3u"; 
-    const channels = [];
+    const channelsByCategory = {}; // Store channels grouped by category
+    let currentCategory = null;
     let currentChannelIndex = 0;
 
     async function fetchM3U() {
@@ -28,12 +29,18 @@ document.addEventListener('DOMContentLoaded', async function () {
             if (line.startsWith("#EXTINF")) {
                 const match = line.match(/tvg-logo="([^"]+)" group-title="([^"]+)", (.+)/);
                 if (match) {
+                    const category = match[2].trim(); // Extract category name
                     currentChannel = {
                         name: match[3].trim(),
                         logo: match[1],
                         manifest: "",
-                        key: {}
+                        key: {},
+                        category: category
                     };
+
+                    if (!channelsByCategory[category]) {
+                        channelsByCategory[category] = [];
+                    }
                 }
             } else if (line.startsWith("#KODIPROP:inputstream.adaptive.license_key=")) {
                 const keyMatch = line.split("=")[1].split(":");
@@ -43,24 +50,45 @@ document.addEventListener('DOMContentLoaded', async function () {
             } else if (line.startsWith("http")) {
                 if (currentChannel) {
                     currentChannel.manifest = line;
-                    channels.push(currentChannel);
+                    channelsByCategory[currentChannel.category].push(currentChannel);
                     currentChannel = null;
                 }
             }
         });
 
-        if (channels.length > 0) {
-            generateChannelList();
-            loadChannel(0, true);
+        if (Object.keys(channelsByCategory).length > 0) {
+            generateCategoryList();
         } else {
             alert("No channels found in the playlist.");
         }
+    }
+
+    function generateCategoryList() {
+        const categoryContainer = document.getElementById("categories");
+        categoryContainer.innerHTML = "";
+
+        Object.keys(channelsByCategory).forEach((category, index) => {
+            const btn = document.createElement("button");
+            btn.className = "category-btn";
+            btn.textContent = category;
+            btn.onclick = () => showCategory(category);
+            categoryContainer.appendChild(btn);
+        });
+
+        // Automatically show the first category
+        showCategory(Object.keys(channelsByCategory)[0]);
+    }
+
+    function showCategory(category) {
+        currentCategory = category;
+        generateChannelList();
     }
 
     function generateChannelList() {
         const listContainer = document.getElementById("channels");
         listContainer.innerHTML = "";
 
+        const channels = channelsByCategory[currentCategory] || [];
         channels.forEach((channel, index) => {
             const btn = document.createElement("button");
             btn.className = "channel-btn";
@@ -86,11 +114,11 @@ document.addEventListener('DOMContentLoaded', async function () {
         alert('Playback Error: ' + event.detail.message);
     });
 
-    async function loadChannel(index, autoplay = false) {
-        if (index < 0 || index >= channels.length) return;
+    async function loadChannel(index) {
+        if (!currentCategory || index < 0 || index >= channelsByCategory[currentCategory].length) return;
 
         currentChannelIndex = index;
-        const channel = channels[index];
+        const channel = channelsByCategory[currentCategory][index];
 
         try {
             logo.src = channel.logo;
@@ -99,8 +127,6 @@ document.addEventListener('DOMContentLoaded', async function () {
             console.log(`${channel.name} loaded successfully!`);
 
             updateSelectedChannel();
-            enterFullscreenAndPlay(); // Auto fullscreen and then autoplay
-
         } catch (error) {
             console.error('Error loading video:', error);
             alert('Failed to load video.');
@@ -113,63 +139,6 @@ document.addEventListener('DOMContentLoaded', async function () {
             btn.classList.toggle("selected", index === currentChannelIndex);
         });
     }
-
-    // Auto Fullscreen + Autoplay Function
-    function enterFullscreenAndPlay() {
-        function playAfterFullscreen() {
-            video.play();
-            document.removeEventListener("fullscreenchange", playAfterFullscreen);
-            document.removeEventListener("webkitfullscreenchange", playAfterFullscreen);
-            document.removeEventListener("mozfullscreenchange", playAfterFullscreen);
-            document.removeEventListener("MSFullscreenChange", playAfterFullscreen);
-        }
-
-        if (video.requestFullscreen) {
-            document.addEventListener("fullscreenchange", playAfterFullscreen);
-            video.requestFullscreen();
-        } else if (video.mozRequestFullScreen) { // Firefox
-            document.addEventListener("mozfullscreenchange", playAfterFullscreen);
-            video.mozRequestFullScreen();
-        } else if (video.webkitRequestFullscreen) { // Chrome, Safari, Edge
-            document.addEventListener("webkitfullscreenchange", playAfterFullscreen);
-            video.webkitRequestFullscreen();
-        } else if (video.msRequestFullscreen) { // IE/Edge
-            document.addEventListener("MSFullscreenChange", playAfterFullscreen);
-            video.msRequestFullscreen();
-        } else {
-            video.play(); // If fullscreen is not supported, just play the video
-        }
-    }
-
-    // Search Bar
-    const searchInput = document.getElementById("searchInput");
-    searchInput.addEventListener("input", function () {
-        const searchTerm = this.value.toLowerCase();
-        const buttons = document.querySelectorAll(".channel-btn");
-
-        buttons.forEach(btn => {
-            const text = btn.textContent.toLowerCase();
-            btn.style.display = text.includes(searchTerm) ? "flex" : "none";
-        });
-    });
-
-    // Remote & Keyboard Navigation
-    document.addEventListener("keydown", (event) => {
-        switch (event.key) {
-            case "ArrowUp":
-                loadChannel(currentChannelIndex - 1);
-                break;
-            case "ArrowDown":
-                loadChannel(currentChannelIndex + 1);
-                break;
-            case "Enter":
-                video.play();
-                break;
-            case " ":
-                video.paused ? video.play() : video.pause();
-                break;
-        }
-    });
 
     fetchM3U();
 });
