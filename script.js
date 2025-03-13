@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     const categories = new Set(["All Channels"]);
     let currentChannelIndex = 0;
 
+    // Initialize Shaka Player
+    const videoElement = document.getElementById("video");
+    const player = new shaka.Player(videoElement);
+
     async function fetchM3U() {
         try {
             const response = await fetch(m3uUrl);
@@ -32,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                         logo: match[1],
                         category: category,
                         manifest: "",
-                        key: {}
+                        drm: null
                     };
                 }
             } else if (line.startsWith("http")) {
