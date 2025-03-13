@@ -9,32 +9,25 @@
 </head>
 <body>
 
-    <div id="app">
-        <!-- Category Selection Dropdown -->
-        <div class="dropdown-container">
-            <label for="categorySelect">Select Category:</label>
-            <select id="categorySelect" onchange="filterByCategory()">
-                <option value="all">All Channels</option>
+<div id="container">
+    <!-- Channel List Sidebar -->
+    <div id="channel-list">
+        <div class="search-bar-container">
+            <input type="text" id="searchInput" placeholder="Search channels...">
+            <select id="categorySelect">
+                <option value="all">All Categories</option>
             </select>
         </div>
-
-        <div class="content">
-            <!-- Channel List -->
-            <div id="channel-list">
-                <div class="search-bar-container">
-                    <input type="text" id="searchInput" placeholder="Search channels..." onkeyup="searchChannels()">
-                </div>
-                <div id="channels"></div>
-            </div>
-
-            <!-- Video Player -->
-            <div id="player-container">
-                <video id="video" autoplay controls></video>
-                <img id="logo" class="channel-logo-large" src="" alt="Channel Logo">
-            </div>
-        </div>
+        <div id="channels"></div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Video Player Section -->
+    <div id="video-container">
+        <video id="video" controls autoplay></video>
+        <img id="logo" src="" alt="Channel Logo">
+    </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
