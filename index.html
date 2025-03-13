@@ -4,33 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPTV Player</title>
-    <link rel="stylesheet" href="animation.css">
-    <link rel="stylesheet" href="https://officialiptv.vercel.app/styles.css">
+    <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.6/shaka-player.compiled.min.js"></script>
 </head>
 <body>
 
-    <div id="container">
-        <div id="video-container">
-            <img id="logo" src="" alt="Channel Logo">
-            <video id="video" controls></video>
+    <div id="app">
+        <!-- Category Selection Dropdown -->
+        <div class="dropdown-container">
+            <label for="categorySelect">Select Category:</label>
+            <select id="categorySelect" onchange="filterByCategory()">
+                <option value="all">All Channels</option>
+            </select>
         </div>
-<div id="categories" class="category-container"></div>
-<div id="channel-list">
-    <div class="search-bar-container">
-        <input type="text" id="searchInput" placeholder="Search channels...">
-    </div>
-    <div id="channels"></div>
-</div>
-        <div id="channel-list">
-            <div class="search-bar-container">
-                <input type="text" id="searchInput" placeholder="Search channels...">
+
+        <div class="content">
+            <!-- Channel List -->
+            <div id="channel-list">
+                <div class="search-bar-container">
+                    <input type="text" id="searchInput" placeholder="Search channels..." onkeyup="searchChannels()">
+                </div>
+                <div id="channels"></div>
             </div>
-            <div id="channels"></div>
+
+            <!-- Video Player -->
+            <div id="player-container">
+                <video id="video" autoplay controls></video>
+                <img id="logo" class="channel-logo-large" src="" alt="Channel Logo">
+            </div>
         </div>
     </div>
 
-    <script src="https://officialiptv.vercel.app/script.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>
