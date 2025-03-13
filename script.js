@@ -1,12 +1,13 @@
 document.addEventListener('DOMContentLoaded', async function () {
-    const m3uUrl = "https://raw.githubusercontent.com/nero31994/minemu3/refs/heads/main/CIGNAL%20-%202025-03-06T191919.914.m3u";
-    const channels = [];
-    const categories = new Set(["All Channels"]);
-    let currentChannelIndex = 0;
+    if (!shaka.Player.isBrowserSupported()) {
+        alert('Error: Shaka Player is not supported on this browser.');
+        return;
+    }
 
-    // Initialize Shaka Player
-    const videoElement = document.getElementById("video");
-    const player = new shaka.Player(videoElement);
+    const m3uUrl = "https://raw.githubusercontent.com/nero31994/minemu3/refs/heads/main/CIGNAL%20-%202025-03-06T191919.914.m3u"; 
+    const channelsByCategory = {}; // Store channels grouped by category
+    let currentCategory = null;
+    let currentChannelIndex = 0;
 
     async function fetchM3U() {
         try {
@@ -28,77 +29,115 @@ document.addEventListener('DOMContentLoaded', async function () {
             if (line.startsWith("#EXTINF")) {
                 const match = line.match(/tvg-logo="([^"]+)" group-title="([^"]+)", (.+)/);
                 if (match) {
-                    const category = match[2].trim();
-                    categories.add(category);
-
+                    const category = match[2].trim(); // Extract category name
                     currentChannel = {
                         name: match[3].trim(),
                         logo: match[1],
-                        category: category,
                         manifest: "",
-                        drm: null
+                        key: {},
+                        category: category
                     };
+
+                    if (!channelsByCategory[category]) {
+                        channelsByCategory[category] = [];
+                    }
+                }
+            } else if (line.startsWith("#KODIPROP:inputstream.adaptive.license_key=")) {
+                const keyMatch = line.split("=")[1].split(":");
+                if (currentChannel) {
+                    currentChannel.key[keyMatch[0]] = keyMatch[1];
                 }
             } else if (line.startsWith("http")) {
                 if (currentChannel) {
                     currentChannel.manifest = line;
-                    channels.push(currentChannel);
+                    channelsByCategory[currentChannel.category].push(currentChannel);
                     currentChannel = null;
                 }
             }
         });
 
-        updateCategoryDropdown();
-        generateChannelList("all");
-        if (channels.length > 0) loadChannel(0);
+        if (Object.keys(channelsByCategory).length > 0) {
+            generateCategoryList();
+        } else {
+            alert("No channels found in the playlist.");
+        }
     }
 
-    function updateCategoryDropdown() {
-        const categorySelect = document.getElementById("categorySelect");
-        categorySelect.innerHTML = `<option value="all">All Channels</option>`;
+    function generateCategoryList() {
+        const categoryContainer = document.getElementById("categories");
+        categoryContainer.innerHTML = "";
 
-        categories.forEach(category => {
-            const option = document.createElement("option");
-            option.value = category;
-            option.textContent = category;
-            categorySelect.appendChild(option);
+        Object.keys(channelsByCategory).forEach((category, index) => {
+            const btn = document.createElement("button");
+            btn.className = "category-btn";
+            btn.textContent = category;
+            btn.onclick = () => showCategory(category);
+            categoryContainer.appendChild(btn);
         });
+
+        // Automatically show the first category
+        showCategory(Object.keys(channelsByCategory)[0]);
     }
 
-    function generateChannelList(selectedCategory) {
+    function showCategory(category) {
+        currentCategory = category;
+        generateChannelList();
+    }
+
+    function generateChannelList() {
         const listContainer = document.getElementById("channels");
         listContainer.innerHTML = "";
 
+        const channels = channelsByCategory[currentCategory] || [];
         channels.forEach((channel, index) => {
-            if (selectedCategory === "all" || channel.category === selectedCategory) {
-                const btn = document.createElement("button");
-                btn.className = "channel-btn";
-                btn.innerHTML = `<img class="channel-logo" src="${channel.logo}" alt="${channel.name}"> ${channel.name}`;
-                btn.onclick = () => loadChannel(index);
-                listContainer.appendChild(btn);
-            }
+            const btn = document.createElement("button");
+            btn.className = "channel-btn";
+            btn.innerHTML = `<img class="channel-logo" src="${channel.logo}" alt="${channel.name}"> ${channel.name}`;
+            btn.onclick = () => loadChannel(index);
+            listContainer.appendChild(btn);
         });
+
+        updateSelectedChannel();
     }
 
-    function filterByCategory() {
-        const selectedCategory = document.getElementById("categorySelect").value;
-        generateChannelList(selectedCategory);
-    }
+    const video = document.getElementById('video');
+    const logo = document.getElementById('logo');
+    const player = new shaka.Player(video);
+
+    player.configure({
+        drm: { servers: {}, clearKeys: {} },
+        streaming: { bufferingGoal: 10 }
+    });
+
+    player.addEventListener('error', (event) => {
+        console.error('Shaka Player Error', event.detail);
+        alert('Playback Error: ' + event.detail.message);
+    });
 
     async function loadChannel(index) {
-        if (index < 0 || index >= channels.length) return;
+        if (!currentCategory || index < 0 || index >= channelsByCategory[currentCategory].length) return;
 
         currentChannelIndex = index;
-        const channel = channels[index];
-        document.getElementById('logo').src = channel.logo;
+        const channel = channelsByCategory[currentCategory][index];
 
         try {
+            logo.src = channel.logo;
+            player.configure({ drm: { clearKeys: channel.key } });
             await player.load(channel.manifest);
             console.log(`${channel.name} loaded successfully!`);
+
+            updateSelectedChannel();
         } catch (error) {
             console.error('Error loading video:', error);
             alert('Failed to load video.');
         }
+    }
+
+    function updateSelectedChannel() {
+        const buttons = document.querySelectorAll(".channel-btn");
+        buttons.forEach((btn, index) => {
+            btn.classList.toggle("selected", index === currentChannelIndex);
+        });
     }
 
     fetchM3U();
