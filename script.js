@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         return;
     }
 
-    const m3uUrl = "https://raw.githubusercontent.com/nero31994/minemu3/refs/heads/main/CIGNAL%20-%202025-03-06T191919.914.m3u"; 
+    const m3uUrl = "https://m3prox.noveylynmarieignacio.workers.dev/"; 
     const channels = [];
     let currentChannelIndex = 0;
     const categories = new Set();
