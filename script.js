@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         return;
     }
 
-    const m3uUrl = "https://frosty-butterfly-1e90.nerodeadly.workers.dev/"; 
+    const m3uUrl = "https://frosty-butterfly-1e90.nerodeadly.workers.dev/m3u"; 
     const channels = [];
     let currentChannelIndex = 0;
     const categories = new Set();
